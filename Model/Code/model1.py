@@ -1,5 +1,17 @@
+
+import tensorflow as tf
+from tensorflow.keras.layers import Embedding, LSTM, Dense
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.model_selection import train_test_split
+from scipy.sparse import csr_matrix
+import numpy as np
+import pandas as pd
+
+
 # read data
-data = pd.read_csv('./Dataset/CSV/Total/Dataset.csv')
+data = pd.read_csv('./Desktop/Model/WhiteHat/Dataset.csv')
 
 # shauffle data
 data = data.sample(frac=1).reset_index(drop=True)
