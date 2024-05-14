@@ -3,13 +3,14 @@ from flask_cors import CORS  # Import CORS class from flask_cors
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import numpy as np
 import os
 import json
 import re
 from solcx import compile_standard, install_solc
 
 app = Flask(__name__)
-CORS(app)  # Wrap your Flask app with CORS
+CORS(app, resources={r"/predict": {"origins": "*"}})  # Wrap your Flask app with CORS
 
 # Load the trained model 
 model_path = os.path.join(os.path.dirname(__file__), 'model1.h5')
@@ -97,30 +98,44 @@ def print_likelihoods(classification):
         print(f'Class {i}: {likelihood:.2f}%')
 
 
-# Define a route for the prediction endpoint
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Get input data from the request 
-    data = request.json
-    
-    # Get values
-    code = data.get('code', '')
-    filename = data.get('file', '')
-    version = extract_version(data.get('version', ''))
-    
-    # Preprocess the input data (if necessary)
-    opcodes = compile_contract(code, filename, version)
-    print(opcodes)
-    
-    # Get the predicted class
-    predicted_class = predict_opcode_class(opcodes)
-    
-    # Print the predicted class
-    print('\nPredicted class:', np.argmax(predicted_class))
-    
-    # Print the likelihoods
-    print('\nLikelihoods:')
-    print_likelihoods(predicted_class)
+    try:
+        # Get input data from the request 
+        data = request.json
+
+        # Get values
+        code = data.get('code', '')
+        filename = data.get('file', '')
+        version = extract_version(data.get('version', ''))
+
+        # Preprocess the input data (if necessary)
+        opcodes = compile_contract(code, filename, version)
+        print(opcodes)
+
+        # Get the predicted class
+        predicted_class = predict_opcode_class(opcodes)
+
+        # Print the predicted class
+        print('\nPredicted class:', np.argmax(predicted_class))
+
+        # Print the likelihoods
+        print('\nLikelihoods:')
+        print_likelihoods(predicted_class)
+
+        # Return the prediction result as JSON
+        response = {
+            "predicted_class": int(np.argmax(predicted_class)),
+            "likelihoods": predicted_class[0].tolist()
+        }
+
+        return jsonify(response)
+
+    except Exception as e:
+        # Log the error and return a 500 error response
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
 
 
 if __name__ == '__main__':
