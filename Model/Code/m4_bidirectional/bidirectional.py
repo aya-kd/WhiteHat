@@ -1,6 +1,6 @@
 # Import libraries
 import tensorflow as tf
-from tensorflow.keras.layers import Embedding, LSTM, Dense, Bidirectional, Dropout
+from tensorflow.keras.layers import Embedding, LSTM, Dense, Bidirectional, Dropout, BatchNormalization
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import OneHotEncoder
@@ -10,6 +10,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import pickle
 
 # Fix random seed for reproducibility
 tf.random.set_seed(7)
@@ -70,15 +71,19 @@ vocab_size = len(tokenizer.word_index) + 1
 embedding_dim = 128
 model.add(Embedding(input_dim=vocab_size, output_dim=embedding_dim, input_length=max_length))
 
-# Adding multiple LSTM layers with dropout
+# Adding multiple Bidirectional LSTM layers with dropout and batch normalization
 model.add(Bidirectional(LSTM(64, return_sequences=True)))
 model.add(Dropout(0.5))
-model.add(Bidirectional(LSTM(64)))
+model.add(BatchNormalization())
+model.add(LSTM(64))
+model.add(Dropout(0.5))
+model.add(BatchNormalization())
 
 # Dense layer
 num_classes = y.shape[1]  # number of unique classes
 model.add(Dense(units=128, activation='relu'))
 model.add(Dropout(0.5))
+model.add(BatchNormalization())
 model.add(Dense(units=num_classes, activation='softmax'))
 
 # Compile the model
@@ -93,8 +98,8 @@ model.summary()
 
 # Define callbacks
 callbacks = [
-    tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=8, restore_best_weights=True),
-    tf.keras.callbacks.ModelCheckpoint(filepath='./Desktop/Model/model2_balanced.keras', save_best_only=True),
+    tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
+    tf.keras.callbacks.ModelCheckpoint(filepath='./Desktop/Model/model2_bidirectional.keras', save_best_only=True),
     tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, min_lr=0.0001)
 ]
 
@@ -102,12 +107,19 @@ callbacks = [
 history = model.fit(
     x_train, 
     y_train, 
-    epochs=50, 
+    epochs=35, 
     batch_size=64, 
     validation_data=(x_val, y_val), 
     class_weight=class_weights_dict, 
     callbacks=callbacks
 )
+
+# Save history
+with open('history.pkl', 'wb') as f:
+    pickle.dump(history.history, f)
+
+# Load the trained model
+model = tf.keras.models.load_model('./Desktop/Model/model2_balanced.keras', custom_objects={'F1Score': F1Score})
 
 # Evaluation
 scores = model.evaluate(x_test, y_test)
