@@ -38,9 +38,9 @@ This project was developed to obtain Master's degree in Computer Science. For mo
 # Features
 
 # Design 
-![UI1](UI-UX Design/UI1.png)
-![UI2](UI-UX Design/UI2.png)
-![UI3](UI-UX Design/UI3.png)
+![UI1]([UI-UX Design/UI1.png](https://github.com/aya-kd/WhiteHat/blob/main/UI-UX%20Design/UI1.png))
+![UI2]([UI-UX Design/UI2.png](https://github.com/aya-kd/WhiteHat/blob/main/UI-UX%20Design/UI2.png))
+![UI3]([UI-UX Design/UI3.png](https://github.com/aya-kd/WhiteHat/blob/main/UI-UX%20Design/UI3.png))
 
 
 # Authors
