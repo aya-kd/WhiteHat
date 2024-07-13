@@ -1,0 +1,41 @@
+
+.code-section{
+  border: 1px solid white;
+  margin-top: 5px;
+  margin-left: 15px;
+  border-radius: 10px 10px 10px 10px;
+
+}
+.right-section {
+  border: 1px solid white;
+  margin-top: 5px;
+  margin-left: 15px; 
+  margin-right: 10px;
+  border-radius: 10px 10px 10px 10px;
+}
+.vertical-layout {
+    display: flex;
+    flex-direction: column;
+  }
+  .content-wrapper {
+    display: flex; /* Make sections horizontal within the content area */ 
+  }
+  .left-section,
+  .code-section,
+  .right-section {
+    flex: 1; /* Distribute available space equally among sections */
+    
+  }
+  .code-section,
+  .right-section{
+    height: 510px;
+  }
+  
+  .left-section {
+    display: flex; /* Make the left section a flex container */
+    flex-direction: column; /* Stack components vertically */
+    margin-top: 5px;
+    
+  } 
+ 
+ 

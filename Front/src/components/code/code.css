@@ -1,0 +1,8 @@
+
+.code{
+    color: white;
+    font-family: 'Courier New', monospace; /* Use a monospaced font */
+  padding: 10px; /* Add padding for spacing */ /* Add a border for visual separation */
+  white-space: pre-wrap; /* Preserve line breaks and spaces */
+    
+}
