@@ -6,13 +6,12 @@ WhiteHas is a web-based AI tool for Solidity smart contract vulnerability detect
 This project was developed to obtain Master's degree in Computer Science. For more detail, please refer to our [thesis](https://drive.google.com/file/d/1ETdp8PXDYRMYzC9i0Q0d4cr4zU8Qmfw5/view?usp=sharing).
 
 # Table of Contents
-- [Tech Stack]()
-- [Features]()
-- [Design]()
-- [Authors]()
-- [License]()
-- [Status]()
-- []()
+- [Tech Stack](https://github.com/aya-kd/WhiteHat/tree/main?tab=readme-ov-file#tech-stack)
+- [Features](https://github.com/aya-kd/WhiteHat/tree/main?tab=readme-ov-file#features)
+- [Design](https://github.com/aya-kd/WhiteHat/tree/main?tab=readme-ov-file#design)
+- [Authors](https://github.com/aya-kd/WhiteHat/tree/main?tab=readme-ov-file#authors)
+- [License](https://github.com/aya-kd/WhiteHat/tree/main?tab=readme-ov-file#license)
+- [Status](https://github.com/aya-kd/WhiteHat/tree/main?tab=readme-ov-file#status)
 
 # Tech Stack
 **Web:**  
@@ -39,7 +38,9 @@ This project was developed to obtain Master's degree in Computer Science. For mo
 # Features
 
 # Design 
-![UI1]()
+![UI1](UI-UX Design/UI1.png)
+![UI2](UI-UX Design/UI2.png)
+![UI3](UI-UX Design/UI3.png)
 
 
 # Authors
