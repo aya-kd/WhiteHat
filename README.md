@@ -3,7 +3,7 @@ WhiteHat
 
 # Description
 WhiteHas is a web-based AI tool for Solidity smart contract vulnerability detection and auditing.  
-This project was developed to obtain Master's degree in Computer Science. For more detail, please refer to our [thesis](https://drive.google.com/file/d/1ETdp8PXDYRMYzC9i0Q0d4cr4zU8Qmfw5/view?usp=sharing).
+This project was developed to obtain Master's degree in Computer Science.
 
 # Table of Contents
 - [Tech Stack](https://github.com/aya-kd/WhiteHat/tree/main?tab=readme-ov-file#tech-stack)
